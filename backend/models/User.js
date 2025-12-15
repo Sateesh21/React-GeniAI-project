@@ -33,17 +33,19 @@ const userSchema = new mongoose.Schema({
     timestamps:true
 });
 
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')){
-        next();
-    }
-    //await removed at salt and this.password
-    const salt = await bcrypt.getSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified("password")) return next();
+
+  if (typeof this.password !== "string") {
+    this.password = this.password.toString();
+  }
+
+  this.password = await bcrypt.hash(this.password, 10);
+//   next();
 });
 
-//Compare password methods
 
+//Compare password methods
 userSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
@@ -51,3 +53,15 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
 const User = mongoose.model('User', userSchema);
 
 export default User;
+
+
+// userSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) return next();
+
+//   if (typeof this.password !== "string") {
+//     this.password = this.password.toString();
+//   }
+
+//   this.password = await bcrypt.hash(this.password, 10);
+// //   next();
+// });

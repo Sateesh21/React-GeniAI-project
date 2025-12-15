@@ -6,7 +6,6 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { connect } from 'http2';
-import { error } from 'console';
 import connectDB from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
 import authRoutes from './routes/authRoutes.js';
@@ -39,8 +38,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
 
 app.use(errorHandler);
-//404 handlers
 
+//404 handlers
 app.use((req, res) => {
     res.status(404).json({
         success: false,
