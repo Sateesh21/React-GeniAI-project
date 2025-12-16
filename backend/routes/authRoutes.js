@@ -30,8 +30,8 @@ router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 
 //protected routes
-router.post('/profile', protect, getProfile);
-router.post('/profile', protect, updateProfile);
+router.get('/profile', protect, getProfile);
+router.put('/profile', protect, updateProfile);
 router.post('/change-password', protect, changePassword);
 
 export default router;
