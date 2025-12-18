@@ -136,6 +136,36 @@ export const getDocuments = async (req, res, next) => {
 
 export const getDocument = async (req, res, next) => {
     try {
+        const document = await Documnet.findOne({
+            _id: req.params.id,
+            userId: req.user._id
+        });
+
+        if (!document) {
+            return res.status(404).json({
+                success: false,
+                error: 'Documnet not found',
+                statusCode: 404
+            });
+        }
+
+        //get counts of associated flascards and quizzes
+        const flashcardCount = await Flashcard.countDocuments({ documnetId: document._id, userId: req.user._id });
+        const quizCount = await Quiz.countDocuments({ documentId: document._id, userId: req.user._id });
+
+        //Upload last accessed
+        document.lastAccessed = Date.now();
+        await documnet.save();
+
+        //Combine documnet data with counts
+        const documentData = documnet.toObject();
+        documentData.flashcardCount = flashcardCount;
+        documentData.quizCount = quizCount;
+
+        res.status(200).json({
+            success: true,
+            data: documentData
+        });
 
     } catch (error) {
         next(error);
@@ -144,14 +174,29 @@ export const getDocument = async (req, res, next) => {
 
 export const deleteDocumnet = async (req, res, next) => {
     try {
+        const documnet = await Document.findOne({
+            _id: req.params.id,
+            userId: req.user._id
+        });
 
-    } catch (error) {
-        next(error);
-    }
-};
+        if (!document) {
+            return res.status(404).json({
+                success: false,
+                error: 'Document not found',
+                statusCode: 404
+            });
+        }
 
-export const updateDocumnet = async (req, res, next) => {
-    try {
+        //Delete file form fileSystem
+        await fs.unlink(document.filePath).catch(() => {});
+
+        //Delete document
+        await document.deleteOne();
+
+        res.status(200).json({
+            success: true,
+            message: 'Documnet deleted successfully'
+        });
 
     } catch (error) {
         next(error);
