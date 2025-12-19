@@ -1,24 +1,24 @@
-import Documnet from "../models/Document.js";
+import Document from "../models/Document.js";
 import Flashcard from "../models/Flashcard.js";
 import Quiz from "../models/Quiz.js";
 import ChatHistory from '../models/ChatHistory.js';
 import * as geminiService from '../utils/geminiService.js';
-import { findReleventChunks } from "../utils/textChunker.js";
+import { findRelevantChunks } from "../utils/textChunker.js";
 
 
 export const generateFlashcards = async (requestAnimationFrame, res, next) => {
     try {
-        const { documnetId, count = 10 } = req.body;
+        const { documentId, count = 10 } = req.body;
 
-        if (!documnetId) {
+        if (!documentId) {
             return res.status(400).json({
                 success: false,
-                error: 'Please provide documnetId',
+                error: 'Please provide documentId',
                 statusCode: 400
             });
         }
 
-        const document = await Documnet.findOne({
+        const document = await Document.findOne({
             _id: documentId,
             userId: req.user._id,
             status: 'ready'
@@ -27,7 +27,7 @@ export const generateFlashcards = async (requestAnimationFrame, res, next) => {
         if (!document) {
             return res.status(400).json({
                 success: false,
-                error: 'Documnet not found or not ready',
+                error: 'Document not found or not ready',
                 statusCode: 404
             });
         }
@@ -62,9 +62,9 @@ export const generateFlashcards = async (requestAnimationFrame, res, next) => {
 
 export const generateQuiz = async (requestAnimationFrame, res, next) => {
     try {
-        const { documnetId, numQuestions = 5, title } = req.body;
+        const { documentId, numQuestions = 5, title } = req.body;
 
-        if (!documnetId) {
+        if (!documentId) {
             return res.status(400).json({
                 success: false,
                 error: false,
@@ -72,8 +72,8 @@ export const generateQuiz = async (requestAnimationFrame, res, next) => {
             });
         }
 
-        const document = await Documnet.findOne({
-            _id: documnetId,
+        const document = await Document.findOne({
+            _id: documentId,
             userId: req.user._id,
             status: 'ready'
         });
@@ -81,7 +81,7 @@ export const generateQuiz = async (requestAnimationFrame, res, next) => {
         if (!document) {
             return res.status(404).json({
                 successs: false,
-                error: 'Documnet not found or not ready',
+                error: 'Document not found or not ready',
                 statusCode: 404
             });
         }
@@ -113,21 +113,21 @@ export const generateSummary = async (requestAnimationFrame, res, next) => {
         if (!documentId) {
             return res.status(400).json({
                 success: false,
-                error: 'Please privide DocumnetId',
+                error: 'Please privide DocumentId',
                 statusCode: 400
             });
         }
 
-        const documnet = await Document.findOne({
-            _id: documnetId,
+        const document = await Document.findOne({
+            _id: documentId,
             userId: req.user._id,
             status: 'ready'
         });
 
-        if(!documnet) {
+        if(!document) {
             return res.status(404).json({
                 success: false,
-                error: 'Documnet not found or not ready',
+                error: 'Document not found or not ready',
                 statusCode: 404
             });
         }
@@ -138,7 +138,7 @@ export const generateSummary = async (requestAnimationFrame, res, next) => {
         res.status(200).json({
             success: true,
             data: {
-                documentId: documnet._id,
+                documentId: document._id,
                 title: document.title,
                 summary
             },
@@ -151,18 +151,18 @@ export const generateSummary = async (requestAnimationFrame, res, next) => {
 
 export const chat = async (requestAnimationFrame, res, next) => {
     try {
-        const { documnetId, question } = req.body;
+        const { documentId, question } = req.body;
 
-        if (!documnetId || !question) {
+        if (!documentId || !question) {
             return res.status(400).json({
                 success: false,
-                error: 'Please provide documnetId and question',
+                error: 'Please provide documentId and question',
                 statusCode: 400
             });
         }
 
         const document = await Document.findOne({
-            _id: documnetId,
+            _id: documentId,
             userId: req.user._id,
             status: 'ready'
         });
@@ -176,19 +176,19 @@ export const chat = async (requestAnimationFrame, res, next) => {
         }
 
         //Find relevent chunks
-        const releventChunks = findReleventChunks(document.chunks, question, 3);
+        const releventChunks = findRelevantChunks(document.chunks, question, 3);
         const chunkIndices = releventChunks.map(c => c.chunkIndex);
 
         //Get or create chat history
         let chatHistory = await ChatHistory.findOne({
             userId: req.user._id,
-            documnetId: docunment._id
+            documentId: docunment._id
         });
 
         if(!chatHistory) {
             chatHistory = await ChatHistory.create({
                 userId: req.user._id,
-                documnetId: documnet._id,
+                documentId: document._id,
                 message: []
             });
         }
@@ -236,12 +236,12 @@ export const explainConcept = async (requestAnimationFrame, res, next) => {
         if(!documentId || !concept) {
             return res.status(400).json({
                 success: false,
-                error: 'Please provide documnetId and concept',
+                error: 'Please provide documentId and concept',
                 statusCode: 400
             });
         }
 
-        const document = await Documnet.findOne({
+        const document = await Document.findOne({
             _id: documnentId,
             userId: req.user._id,
             status: 'ready'
@@ -250,13 +250,13 @@ export const explainConcept = async (requestAnimationFrame, res, next) => {
         if(!document){
             return res.status(404).json({
                 success: false,
-                error: 'Documnet not found or not ready',
+                error: 'Document not found or not ready',
                 statusCode: 404
             });
         }
 
         //Find relevant chunks for the concept
-        const relevantChunks = findReleventChunks(document.chunks, concept, 3);
+        const relevantChunks = findRelevantChunks(document.chunks, concept, 3);
         const context = relevantChunks.map(c => c.content).join('\n\n');
 
         //Generate explanation using Gemini
@@ -290,7 +290,7 @@ export const getChatHistory = async (requestAnimationFrame, res, next) => {
 
         const chatHistory = await ChatHistory.findOne({
             userId: req.user._id,
-            documentId: documnetId
+            documentId: documentId
         }).select('message');
 
         if (!chatHistory){
