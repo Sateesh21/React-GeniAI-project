@@ -21,7 +21,7 @@ const protect = async (req, res, next) => {
 
             next();
         } catch (error){
-            console.log('Auth middlewere error', error.message);
+            console.error('Auth middlewere error', error.message);
             if (error.name === 'TokenExpriedError'){
                 return res.status(401).json({
                     success: false,

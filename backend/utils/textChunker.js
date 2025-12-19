@@ -1,11 +1,3 @@
-/**
- * Split text into chunks for better AI processing
- * @param {String} text- Full text to chunk
- * @param {number} chunkSize = Target size per chunk (in words)
- * @param {number} overlap -Nunber of words to overlap between chunks
- * @returns {Array<{content: String, chunkIndex: number, pageNumber: number}>}
- */
-
 export const chunkText = (text, chunkSize = 500, overlap = 50) => {
     if (!text || text.trim().length === 0) {
         return [];
@@ -17,7 +9,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
 
     const chunks = [];
     let currentChunk = [];
-    let curretWordCount = 0;
+    let currentWordCount = 0;
     let chunkIndex = 0;
 
     for (const paragraph of paragraphs) {
@@ -33,7 +25,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
                     pageNumber: 0
                 });
                 currentChunk = [];
-                curretWordCount = 0;
+                currentWordCount = 0;
             }
 
             //Split large paragraph into word-based chunks
@@ -50,7 +42,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
             continue;
         }
 
-        if (curretWordCount + paragraphWordCount > chunkSize && currentChunk.length > 0) {
+        if (currentWordCount + paragraphWordCount > chunkSize && currentChunk.length > 0) {
             chunks.push({
                 content: currentChunk.join('\n\n'),
                 chunkIndex: chunkIndex++,
@@ -63,11 +55,11 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
             const overlapText = prevWords.slice(-Math.min(overlap, prevWords.length)).join(' ');
 
             currentChunk = [overlapText, paragraph.trim()];
-            curretWordCount = overlapText.split(/\s+/).length + paragraphWordCount;
+            currentWordCount = overlapText.split(/\s+/).length + paragraphWordCount;
         } else {
             //add paragraph to current chunk
             currentChunk.push(paragraph.trim());
-            curretWordCount += paragraphWordCount;
+            currentWordCount += paragraphWordCount;
         }
     }
     //add the last chunk
@@ -94,17 +86,10 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
         }
     }
     return chunks;
-}
+};
 
-/**
- * Find relevent chunks based on keywords matching
- * @param {Array<Object>} chunks -array of chunks
- * @param {String} quary - Search quary
- * @param {number} maxChunks - maximum chunks to return
- * @returns {Array<Object>}
- */
 
-export const findReleventChunks = (chunks, quary, maxChunks = 3) => {
+export const findRelevantChunks = (chunks, quary, maxChunks = 3) => {
     if (!chunks || chunks.length === 0 || !quary) {
         return [];
     }
@@ -132,11 +117,11 @@ export const findReleventChunks = (chunks, quary, maxChunks = 3) => {
 
         //Score each quary word
         for (const word of quaryWords) {
-            const exactMatchs = (content.match(new RegExp(`\\b${word}\\b`, 'g')) || []).length;
-            score += exactMatchs * 3;
+            const exactMatches = (content.match(new RegExp(`\\b${word}\\b`, 'g')) || []).length;
+            score += exactMatches * 3;
 
             const partialMatches = (content.match(new RegExp(word, 'g')) || []).length;
-            score += Math.max(0, partialMatches - exactMatchs) * 1.5;
+            score += Math.max(0, partialMatches - exactMatches) * 1.5;
         }
 
         //Bonus: multiple quary words found
@@ -171,5 +156,5 @@ export const findReleventChunks = (chunks, quary, maxChunks = 3) => {
         }
         return a.chunkIndex - b.chunkIndex;
     })
-        .split(0, maxChunks);
+        .slice(0, maxChunks);
 };

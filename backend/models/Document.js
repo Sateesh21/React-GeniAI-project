@@ -8,7 +8,7 @@ const documentSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: [true, 'Please provide a documnet title'],
+        required: [true, 'Please provide a document title'],
         trim: true
     },
 
@@ -30,7 +30,7 @@ const documentSchema = new mongoose.Schema({
         default: ''
     },
     chunks: [{
-        connect: {
+        content: {
             type: String,
             required: true
         },
@@ -48,12 +48,12 @@ const documentSchema = new mongoose.Schema({
 
     uploadDate: {
         type: Date,
-        default: Date.new
+        default: Date.now
     },
 
     lastAccessed: {
         type: Date,
-        default: Date.new
+        default: Date.now
     },
 
     status: {
@@ -67,6 +67,6 @@ const documentSchema = new mongoose.Schema({
 
 documentSchema.index({ userId: 1, uploadDate: -1 });
 
-const Documnet = mongoose.model('Document', documentSchema);
+const Document = mongoose.model('Document', documentSchema);
 
-export default Documnet;
+export default Document;

@@ -2,12 +2,6 @@ import fs from 'fs/promises';
 import { PDFParse } from 'pdf-parse';
 
 
-/**
- * Extract text from PDF file
- * @param {String} filePath -path to PDF file
- * @returns {Promise<{text: String, numPage: number} >}
- */
-
 export const extractTextFromPDF = async (filePath) => {
     try {
         const dataBuffer = await fs.readFile(filePath);

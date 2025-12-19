@@ -7,9 +7,9 @@ const flashcardSchema = new mongoose.Schema({
         required: true,
     },
 
-    documnetId: {
+    documentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Documnet",
+        ref: "Document",
         required: true,
     },
 
@@ -41,7 +41,7 @@ const flashcardSchema = new mongoose.Schema({
 }
 );
 
-flashcardSchema.index({ userId: 1, documnetId: 1 });
+flashcardSchema.index({ userId: 1, documentId: 1 });
 
 const Flashcard = mongoose.model("Flashcard", flashcardSchema);
 

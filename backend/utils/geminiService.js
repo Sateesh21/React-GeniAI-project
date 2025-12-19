@@ -139,7 +139,7 @@ export const generateQuiz = async (text, numQuestions = 5) => {
 };
 
 /**
- * Generate documnet summary
+ * Generate document summary
  * @param {string} text - Document text
  * @returns {Promise<String>}
  */
@@ -165,9 +165,9 @@ export const generateSummary = async (text) => {
 };
 
 /**
- * Chat with documnet context
+ * Chat with document context
  * @param {string} question - User question
- * @param {Array<Object>} chunks - Relevant documnet chunks
+ * @param {Array<Object>} chunks - Relevant document chunks
  * @returns {Promise<string>}
  */
 
@@ -176,7 +176,7 @@ export const chatWithContext = async (question, chunks) => {
 
     // console.log("context____", context);
 
-    const prompt = `Based on the following context from a documnet, Analyse the context and answer the user's questions
+    const prompt = `Based on the following context from a document, Analyse the context and answer the user's questions
     If the answer is not in the context, say so.
     
     Context:
