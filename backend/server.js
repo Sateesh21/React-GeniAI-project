@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 // import { error } from 'console';
 import connectDB from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
+
 import authRoutes from './routes/authRoutes.js';
 import documentRoutes from './routes/documentRoutes.js';
 import flashcardRoutes from './routes/flashcardRoutes.js';

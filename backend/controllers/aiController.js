@@ -6,7 +6,7 @@ import * as geminiService from '../utils/geminiService.js';
 import { findRelevantChunks } from "../utils/textChunker.js";
 
 
-export const generateFlashcards = async (requestAnimationFrame, res, next) => {
+export const generateFlashcards = async (req, res, next) => {
     try {
         const { documentId, count = 10 } = req.body;
 
@@ -25,7 +25,7 @@ export const generateFlashcards = async (requestAnimationFrame, res, next) => {
         });
 
         if (!document) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 error: 'Document not found or not ready',
                 statusCode: 404
@@ -43,8 +43,9 @@ export const generateFlashcards = async (requestAnimationFrame, res, next) => {
             userId: req.user._id,
             documentId: document._id,
             cards: cards.map(card => ({
+                question: card.question,
                 answer: card.answer,
-                difficuelty: card.diffcuelty,
+                difficuelty: card.difficulty,
                 reviewCount: 0,
                 isStarred: false
             }))
@@ -60,14 +61,14 @@ export const generateFlashcards = async (requestAnimationFrame, res, next) => {
     }
 };
 
-export const generateQuiz = async (requestAnimationFrame, res, next) => {
+export const generateQuiz = async (req, res, next) => {
     try {
         const { documentId, numQuestions = 5, title } = req.body;
 
         if (!documentId) {
             return res.status(400).json({
                 success: false,
-                error: false,
+                error: 'Please provide documnetId',
                 statusCode: 400
             });
         }
@@ -102,12 +103,18 @@ export const generateQuiz = async (requestAnimationFrame, res, next) => {
             userAnswer: [],
             score: 0
         });
+
+        res.status(201).json({
+            success: true,
+            data: quiz,
+            message: 'Quiz generated Successfully'
+        })
     } catch (error) {
         next(error);
     }
 };
 
-export const generateSummary = async (requestAnimationFrame, res, next) => {
+export const generateSummary = async (req, res, next) => {
     try {
         const { documentId } = req.body;
         if (!documentId) {
@@ -149,7 +156,7 @@ export const generateSummary = async (requestAnimationFrame, res, next) => {
     }
 };
 
-export const chat = async (requestAnimationFrame, res, next) => {
+export const chat = async (req, res, next) => {
     try {
         const { documentId, question } = req.body;
 
@@ -229,7 +236,7 @@ export const chat = async (requestAnimationFrame, res, next) => {
     }
 };
 
-export const explainConcept = async (requestAnimationFrame, res, next) => {
+export const explainConcept = async (req, res, next) => {
     try {
         const { documnentId, concept } = req.body;
 
@@ -276,7 +283,7 @@ export const explainConcept = async (requestAnimationFrame, res, next) => {
     }
 };
 
-export const getChatHistory = async (requestAnimationFrame, res, next) => {
+export const getChatHistory = async (req, res, next) => {
     try {
         const { documentId } = req.params;
 

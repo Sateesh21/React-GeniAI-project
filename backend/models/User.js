@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
@@ -17,14 +17,12 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email']
     },
-
     password: {
         type: String,
         required: [true, 'please provide a password'],
         minlength: [6, 'Password must be at least 6 characters long'],
         select: false
     },
-
     profileImage: {
         type: String,
         default: null
@@ -32,15 +30,6 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps:true
 });
-
-//Hash password
-// userSchema.pre('save', async function (next) {
-//     if (!this.isModified('password')) {
-//         next();
-//     }
-//     const salt = await bcrypt.getSalt(10);
-//     this.password = await bcrypt.hash(this.password, salt);
-// });
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return;
