@@ -140,7 +140,7 @@ export const generateSummary = async (req, res, next) => {
         }
 
         //Generate summary
-        const summary = await geminiService.generateSummary(document.extractText);
+        const summary = await geminiService.generateSummary(document.extractedText);
 
         res.status(200).json({
             success: true,
@@ -189,7 +189,7 @@ export const chat = async (req, res, next) => {
         //Get or create chat history
         let chatHistory = await ChatHistory.findOne({
             userId: req.user._id,
-            documentId: docunment._id
+            documentId: document._id
         });
 
         if(!chatHistory) {
@@ -201,15 +201,15 @@ export const chat = async (req, res, next) => {
         }
 
         //generate response using gemini
-        const answer = await geminiService.chatWithContext(question, relevetnChunks);
+        const answer = await geminiService.chatWithContext(question, releventChunks);
 
         //Save conversion
-        chatHistory.message.push(
+        chatHistory.messages.push(
             {
                 role:'user',
                 content: question,
                 timestamp: new Date(),
-                relevantChunks: chunkIndices
+                relevantChunks: []
             }, 
             {
                 role: 'assistant',
@@ -238,7 +238,7 @@ export const chat = async (req, res, next) => {
 
 export const explainConcept = async (req, res, next) => {
     try {
-        const { documnentId, concept } = req.body;
+        const { documentId, concept } = req.body;
 
         if(!documentId || !concept) {
             return res.status(400).json({
@@ -249,7 +249,7 @@ export const explainConcept = async (req, res, next) => {
         }
 
         const document = await Document.findOne({
-            _id: documnentId,
+            _id: documentId,
             userId: req.user._id,
             status: 'ready'
         });
@@ -269,7 +269,7 @@ export const explainConcept = async (req, res, next) => {
         //Generate explanation using Gemini
         const explanation = await geminiService.explainConcept(concept, context);
 
-        res.ststus(200).json({
+        res.status(200).json({
             success: true,
             data: {
                 concept,
@@ -310,7 +310,7 @@ export const getChatHistory = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            data: chatHistory.message,
+            data: chatHistory.messages,
             message: 'Chat history retrieved successfully'
         });
     } catch (error) {

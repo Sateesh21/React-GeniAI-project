@@ -102,7 +102,8 @@ export const findRelevantChunks = (chunks, quary, maxChunks = 3) => {
 
     //Common stop words to exclude
     const stopWords = new Set([
-        'the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'but', 'in', 'with', 'to', 'for', 'of', 'as', 'by', 'this', 'that', 'it'
+        'the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'but', 'in', 
+        'with', 'to', 'for', 'of', 'as', 'by', 'this', 'that', 'it'
     ]);
 
     const quaryWords = quary.toLowerCase().split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));

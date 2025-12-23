@@ -1,17 +1,12 @@
 import Quiz from '../models/Quiz.js';
 import router from '../routes/quizRoutes.js';
 
-//@desc get all quizzes for a document
-//@route GET/ai/quizzes/: documentId
-//@access Private
-
 export const getQuizzes = async (req, res, next) => {
     try {
         const quizzes = await Quiz.find({
             userId: req.user._id,
             documentId: req.params.documentId
         })
-
             .populate('documentId', 'title fuleName')
             .sort({ createdAt: -1 });
 
@@ -112,7 +107,7 @@ export const submitQuiz = async (req, res, next) => {
         //Update quiz
         quiz.userAnswers = userAnswers;
         quiz.score = score;
-        quiz.compleatedAt = new Date();
+        quiz.completedAt = new Date();
 
         await quiz.save();
 
