@@ -1,5 +1,5 @@
-import Documnet from '../models/Document.js';
 import Document from '../models/Document.js';
+// import Document from '../models/Document.js';
 import Flashcard from '../models/Flashcard.js';
 import Quiz from '../models/Quiz.js';
 import { extractTextFromPDF } from '../utils/pdfParser.js';
@@ -33,12 +33,13 @@ export const uploadDocument = async (req, res, next) => {
         const baseUrl = `http://localhost:${process.env.PORT || 8000}`;
         const fileUrl = `${baseUrl}/uploads/documents/${req.file.filename}`;
 
-        //Create documnet reload
+        //Create document reload
         const document = await Document.create({
             userId: req.user._id,
             title,
             fileName: req.file.originalname,
-            filePath: req.file.size,
+            filePath: fileUrl,
+            fileSize: req.file.size,
             status: 'processing'
         });
 
@@ -68,16 +69,16 @@ const processPDF = async (documentId, filePath) => {
 
         const chunks = chunkText(text, 500, 50);
 
-        await Document.finedByIdAndUpload(documnetId, {
+        await Document.findByIdAndUpdate(documentId, {
             extractedText: text,
             chunks: chunks,
             status: 'ready'
         });
 
-        console.log(`Documnet ${documentId} processed Successfully`);
+        console.log(`Document ${documentId} processed Successfully`);
     } catch (error) {
-        console.error(`Error Processing documnet ${documentId}:`, error);
-        await Documnet.findByIdAndUpdate(documentId, {
+        console.error(`Error Processing document ${documentId}:`, error);
+        await Document.findByIdAndUpdate(documentId, {
             status: 'failed'
         });
     }
@@ -93,7 +94,7 @@ export const getDocuments = async (req, res, next) => {
                 $lookup: {
                     from: 'flashcards',
                     localField: '_id',
-                    foreignField: 'documnetId',
+                    foreignField: 'documentId',
                     as: 'flashcardSets'
                 }
             },
@@ -101,7 +102,7 @@ export const getDocuments = async (req, res, next) => {
                 $lookup: {
                     from: 'quizzes',
                     localField: '_id',
-                    foreignField: 'documnetId',
+                    foreignField: 'documentId',
                     as: 'quizzes'
                 }
             }, {
@@ -112,7 +113,7 @@ export const getDocuments = async (req, res, next) => {
             },
             {
                 $project: {
-                    extractText: 0,
+                    extractedText: 0,
                     chunks: 0,
                     flashcardSets: 0,
                     quizzes: 0
@@ -136,7 +137,7 @@ export const getDocuments = async (req, res, next) => {
 
 export const getDocument = async (req, res, next) => {
     try {
-        const document = await Documnet.findOne({
+        const document = await Document.findOne({
             _id: req.params.id,
             userId: req.user._id
         });
@@ -144,21 +145,21 @@ export const getDocument = async (req, res, next) => {
         if (!document) {
             return res.status(404).json({
                 success: false,
-                error: 'Documnet not found',
+                error: 'Document not found',
                 statusCode: 404
             });
         }
 
-        //get counts of associated flascards and quizzes
-        const flashcardCount = await Flashcard.countDocuments({ documnetId: document._id, userId: req.user._id });
+        //get counts of associated flascards and quizzes /api/documents/upload
+        const flashcardCount = await Flashcard.countDocuments({ documentId: document._id, userId: req.user._id });
         const quizCount = await Quiz.countDocuments({ documentId: document._id, userId: req.user._id });
 
         //Upload last accessed
         document.lastAccessed = Date.now();
-        await documnet.save();
+        await document.save();
 
-        //Combine documnet data with counts
-        const documentData = documnet.toObject();
+        //Combine document data with counts
+        const documentData = document.toObject();
         documentData.flashcardCount = flashcardCount;
         documentData.quizCount = quizCount;
 
@@ -172,9 +173,9 @@ export const getDocument = async (req, res, next) => {
     }
 };
 
-export const deleteDocumnet = async (req, res, next) => {
+export const deleteDocument = async (req, res, next) => {
     try {
-        const documnet = await Document.findOne({
+        const document = await Document.findOne({
             _id: req.params.id,
             userId: req.user._id
         });
@@ -195,10 +196,14 @@ export const deleteDocumnet = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'Documnet deleted successfully'
+            message: 'Document deleted successfully'
         });
 
     } catch (error) {
         next(error);
     }
 };
+
+// export const updateDocument = async (req, res, next) => {
+
+// };

@@ -32,6 +32,7 @@ export const register = async (req, res, next) => {
 
         //generate token
         const token = generateToken(user._id);
+        
         res.status(201).json({
             success: true,
             data: {
@@ -51,8 +52,6 @@ export const register = async (req, res, next) => {
     }
 };
 
-//@desc Login user
-// @route POST/api/auth/login
 
 export const login = async (req, res, next) => {
     try {

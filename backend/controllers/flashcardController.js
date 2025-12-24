@@ -6,7 +6,6 @@ export const getFlashcards = async (req, res, next) => {
             userId: req.user._id,
             documentId: req.params.documentId
         })
-
             .populate('DocumentId', 'title fileName')
             .sort({ createdAt: -1 });
 
@@ -46,7 +45,7 @@ export const reviewFlashcard = async (req, res, next) => {
 
         if (!flashcardSet) {
             return res.status(404).json({
-                success: flase,
+                success: false,
                 error: 'Flashcard set or card not found',
                 statusCode: 404
             });
@@ -57,7 +56,7 @@ export const reviewFlashcard = async (req, res, next) => {
         if (cardIndex === -1) {
             return res.status(404).join({
                 success: false,
-                error: 'Card not in set',
+                error: 'Card not found in set',
                 statusCode: 404
             });
         }
@@ -94,12 +93,12 @@ export const toggleStarFlashcard = async (req, res, next) => {
             });
         }
 
-        const cardIndex = flashcardSet.cards.findOne(card => card._id.toString() === req.params.cardId);
+        const cardIndex = flashcardSet.cards.findIndex(card => card._id.toString() === req.params.cardId);
 
         if (cardIndex === -1) {
             return res.status(404).json({
                 success: false,
-                error: 'Card not found',
+                error: 'Card not found in Set',
                 statusCode: 404
             });
         }
@@ -147,3 +146,5 @@ export const deleteFlashcardSet = async (req, res, next) => {
         next(error);
     }
 };
+
+//Cross Check Done !

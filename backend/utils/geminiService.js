@@ -6,16 +6,9 @@ dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 if (!process.env.GEMINI_API_KEY) {
-    console.error('FATAL ERROR: GEMINI_API_KEY is not set in the environment variables ');
+    console.error('FATAL ERROR: GEMINI_API_KEY is not set in the environment variables.');
     process.exit(1);
 }
-
-/**
- * Generate flashcards from text
- * @param {String} text - Documnrt text
- * @param {number} count - Number of flashcards to generate
- * @returns {Promise<Array<{question: string, answer: string, difficulty: string}>>}
- */
 
 export const generateFlashcards = async (text, count = 10) => {
     const prompt = `Generate exactly ${count} educational flashcards from the following text.
@@ -24,9 +17,9 @@ export const generateFlashcards = async (text, count = 10) => {
     A: [Concise, accurate answer]
     D: [Difficulty level: easy, medium, or hard]
     
-    Sepatate each flashcard with "---"
+    Separate each flashcard with "---"
     
-    text:
+    Text:
     ${text.substring(0, 15000)}`;
 
     try {
@@ -35,7 +28,7 @@ export const generateFlashcards = async (text, count = 10) => {
             contents: prompt,
         });
 
-        const generatedText = response.text();
+        const generatedText = response.text;
 
         const flashcards = [];
         const cards = generatedText.split('---').filter(c => c.trim());
@@ -44,7 +37,7 @@ export const generateFlashcards = async (text, count = 10) => {
             const lines = card.trim().split('\n');
             let question = '', answer = '', difficulty = 'medium';
 
-            for (const line in lines) {
+            for (const line of lines) {
                 if (line.startsWith('Q:')) {
                     question = line.substring(2).trim();
                 } else if (line.startsWith('A:')) {
@@ -58,7 +51,7 @@ export const generateFlashcards = async (text, count = 10) => {
             }
 
             if (question && answer) {
-                flashcards.push({ question, answer, diffculty });
+                flashcards.push({ question, answer, difficulty });
             }
         }
 
@@ -67,23 +60,17 @@ export const generateFlashcards = async (text, count = 10) => {
         console.error('Gemini API error: ', error);
         throw new Error('Failed to generate flashcards');
     }
-}
+};
 
-/**
- * Generate Quiz questions
- * @param {string} text - Document text
- * @param {number} numQuestions - Number of questions
- * @returns {Promise<Array<{question: string, options: Array, correctAnswer: string, explanation: string, diffculty: string}>>}
- */
 
 export const generateQuiz = async (text, numQuestions = 5) => {
     const prompt = `Generate exactly ${numQuestions} multiple choise questions from the following text.
     Format each question as:
     Q: [Question]
-    Q1:[Option 1]
-    Q1:[Option 2]
-    Q1:[Option 3]
-    Q1:[Option 4]
+    O1: [Option 1]
+    O1: [Option 2]
+    O1: [Option 3]
+    O1: [Option 4]
     C: [Correct option - exactly as written above]
     E: [Brief explanation]
     D: [Difficuelty: easy, medium, or hard]
@@ -105,9 +92,9 @@ export const generateQuiz = async (text, numQuestions = 5) => {
 
         for (const block of questionBlocks) {
             const lines = block.trim().split('\n');
-            let question = '', options = [], correctAnswer = '', explanation = '', diffculty = 'medium';
+            let question = '', options = [], correctAnswer = '', explanation = '', difficulty = 'medium';
 
-            for (const line in lines) {
+            for (const line of lines) {
                 const trimmed = line.trim();
                 if (trimmed.startsWith('Q:')) {
                     question = trimmed.substring(2).trim();
@@ -120,13 +107,13 @@ export const generateQuiz = async (text, numQuestions = 5) => {
                 } else if (trimmed.startsWith('D:')) {
                     const diff = trimmed.substring(2).trim().toLowerCase();
                     if (['easy', 'medium', 'hard'].includes(diff)) {
-                        diffculty = diff;
+                        difficulty = diff;
                     }
                 }
             }
 
             if (question && options.length === 4 && correctAnswer) {
-                questions.push({ question, options, correctAnswer, explanation, diffculty });
+                questions.push({ question, options, correctAnswer, explanation, difficulty });
 
             }
         }
@@ -139,13 +126,11 @@ export const generateQuiz = async (text, numQuestions = 5) => {
 };
 
 /**
- * Generate documnet summary
- * @param {string} text - Document text
- * @returns {Promise<String>}
+ * Generate document summary
  */
 
 export const generateSummary = async (text) => {
-    const prompt = `Provide a concise summry of teh following text, highlighting the key concepts, main ideas, and important points.
+    const prompt = `Provide a concise summry of the following text, highlighting the key concepts, main ideas, and important points.
     Keep the summary clear and strectured.
     
     Text:
@@ -165,10 +150,7 @@ export const generateSummary = async (text) => {
 };
 
 /**
- * Chat with documnet context
- * @param {string} question - User question
- * @param {Array<Object>} chunks - Relevant documnet chunks
- * @returns {Promise<string>}
+ * Chat with document context
  */
 
 export const chatWithContext = async (question, chunks) => {
@@ -176,7 +158,7 @@ export const chatWithContext = async (question, chunks) => {
 
     // console.log("context____", context);
 
-    const prompt = `Based on the following context from a documnet, Analyse the context and answer the user's questions
+    const prompt = `Based on the following context from a document, Analyse the context and answer the user's questions
     If the answer is not in the context, say so.
     
     Context:
@@ -202,9 +184,6 @@ export const chatWithContext = async (question, chunks) => {
 
 /**
  * Explain a specific concept
- * @param {string} concept -Concept to explain
- * @param {string} context - Relevant context
- * @returns {Promise<string>}
  */
 export const explainConcept = async(concept, context) => {
     const prompt = `Explain the concept of "${concept}" based on the following context.
@@ -227,3 +206,5 @@ export const explainConcept = async(concept, context) => {
         throw new Error('Failed to explain concept');
     }
 };
+
+//Checks Done !

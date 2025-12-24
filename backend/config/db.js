@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+mongoose.set('strictPopulate', false);
 
 const connectDB = async () => {
     try {

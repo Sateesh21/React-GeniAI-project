@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { routeros } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import LoginPage from './pages/Auth/LoginPage';
 import RegisterPage from './pages/Auth/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -13,10 +12,10 @@ import FlashcardPage from './pages/Flashcards/FlashcardPage';
 import QuizTakePage from './pages/Quizzes/QuizTakePage';
 import QuizResultPage from './pages/quizzes/QuizResultPage';
 import ProfilePage from './pages/Profile/ProfilePage';
+import { useAuth } from './context/AuthContext';
 
 const App = () => {
-  const isAuthenticated = true
-  const loading = false
+  const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
     return (

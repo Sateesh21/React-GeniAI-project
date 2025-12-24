@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const quizSchema = new mongoose.Schema({
     userId: {
@@ -9,7 +9,7 @@ const quizSchema = new mongoose.Schema({
 
     documentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Documnet',
+        ref: 'Document',
         required: true
     },
 
@@ -20,7 +20,7 @@ const quizSchema = new mongoose.Schema({
     },
 
     questions: [{
-        questions: {
+        question: {
             type: String,
             required: true
         },
@@ -74,7 +74,7 @@ const quizSchema = new mongoose.Schema({
         required: true
     },
 
-    compleatedAt: {
+    completedAt: {
         type: Date,
         default: null
     }
