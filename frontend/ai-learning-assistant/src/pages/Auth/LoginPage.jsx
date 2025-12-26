@@ -3,13 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import authService from '../../services/authService';
 import { BrainCircuit, Mail, Lock, ArrowRight } from 'lucide-react';
-// import toast from 'react-hot-toast';
 import toast, { Toaster } from "react-hot-toast";
 
 const LoginPage = () => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('sateeshs402@gmail.com');
+  const [password, setPassword] = useState('86216267');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
