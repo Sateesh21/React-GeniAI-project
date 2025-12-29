@@ -39,3 +39,4 @@ chatHistorySchema.index({ userId: 1, documentId: 1});
 const ChatHistory = mongoose.model('ChatHistory', chatHistorySchema);
 
 export default ChatHistory;
+//Done

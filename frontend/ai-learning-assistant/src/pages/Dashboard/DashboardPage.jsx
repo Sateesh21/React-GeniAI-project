@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Spinner from '../../components/common/Spinner';
 import progressService from '../../services/progressService';
 import toast from 'react-hot-toast';
-import { FileText, BookOpen, BrainCircuit, TrendingUp, Clock } from 'lucide-react';
+import { FileText, BookOpen, ClipboardList, TrendingUp, Clock } from 'lucide-react';
 
 
 const DashboardPage = () => {
@@ -61,8 +61,8 @@ const DashboardPage = () => {
     {
       label: 'Total Quizzes',
       value: dashboardData.overview.totalQuizzes,
-      icon: BrainCircuit,
-      gradient: 'from-emerald-400 to-real-500',
+      icon: ClipboardList,
+      gradient: 'from-emerald-400 to-teal-500',
       shadowColor: 'shadow-emerald-500/25'
     }
   ];
@@ -76,7 +76,7 @@ const DashboardPage = () => {
             Dashboard
           </h1>
           <p className='text-slate-text-sm'>
-            Track your learning progress and activity
+            TRACK YOUR PROGRESS
           </p>
         </div>
 

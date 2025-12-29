@@ -68,9 +68,9 @@ export const generateQuiz = async (text, numQuestions = 5) => {
     Format each question as:
     Q: [Question]
     O1: [Option 1]
-    O1: [Option 2]
-    O1: [Option 3]
-    O1: [Option 4]
+    O2: [Option 2]
+    O3: [Option 3]
+    O4: [Option 4]
     C: [Correct option - exactly as written above]
     E: [Brief explanation]
     D: [Difficuelty: easy, medium, or hard]

@@ -17,7 +17,7 @@ const ChatInterface = () => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth " });
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     useEffect(() => {
@@ -115,7 +115,7 @@ const ChatInterface = () => {
     };
 
     return (
-        <div className='flex flex-col h-[70vh] bg-white/80 backdrop-blur-xl border border-slate-200/60 shadow-xl shadow-slate-200/50 overflow-hidden'>
+        <div className='flex flex-col h-[70vh] bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden'>
             {/* message area */}
             <div className='flex-1 p-6 overflow-y-auto bg-linear-to-br from-slate-50/50 via-white/50 to-slate-50/50'>
                 {history.length === 0 ? (
@@ -153,6 +153,7 @@ const ChatInterface = () => {
                         type='text'
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        placeholder='Ask a follow-up'
                         className='flex-1 h-12 px-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholeder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10'
                         disabled={loading} />
 

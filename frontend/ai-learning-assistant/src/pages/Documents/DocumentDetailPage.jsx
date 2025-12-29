@@ -67,7 +67,7 @@ const DocumentDetailPage = () => {
             href={pdfUrl}
             target='_blank'
             rel="noopener noreferrer"
-            className='inline-flex items-center gap-1.5 text-sm test-blue-600 hover:text-blue-700 font-medium transition-colors'>
+            className='inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors'>
             <ExternalLink size={16} />
             Open in new tab
           </a>
@@ -77,7 +77,6 @@ const DocumentDetailPage = () => {
             src={pdfUrl}
             className='w-full h-[70vh] bg-white rounded border border-gray-300'
             title='PDF Viewer'
-            frameBorder="0"
             style={{
               colorScheme: 'light',
             }} />

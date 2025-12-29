@@ -20,7 +20,7 @@ export const API_PATHS = {
     AI: {
         GENERATE_FLASHCARDS: "/api/ai/generate-flashcards",
         GENERATE_QUIZ: "/api/ai/generate-quiz",
-        GENERATE_SUMMARY: "/api/ai/gemerate-summary",
+        GENERATE_SUMMARY: "/api/ai/generate-summary",
         CHAT: "/api/ai/chat",
         EXPLAIN_CONCEPT: "/api/ai/explain-concept",
         GET_CHAT_HISTORY: (documentId) => `/api/ai/chat-history/${documentId}`,
@@ -38,7 +38,7 @@ export const API_PATHS = {
         GET_QUIZZES_FOR_DOC: (documentId) => `/api/quizzes/${documentId}`,
         GET_QUIZ_BY_ID: (id) => `/api/quizzes/quiz/${id}`,
         SUBMIT_QUIZ: (id) => `/api/quizzes/${id}/submit`,
-        GET_QUIZ_RESULTS: (id) => `/api/quizzes${id}/results`,
+        GET_QUIZ_RESULTS: (id) => `/api/quizzes/${id}/results`,
         DELETE_QUIZ: (id) => `/api/quizzes/${id}`,
     },
 

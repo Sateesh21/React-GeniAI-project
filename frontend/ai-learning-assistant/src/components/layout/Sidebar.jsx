@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LayoutDashboard, FileText, User, LogOut, BrainCircuit, BookOpen, X } from 'lucide-react';
+import { LayoutDashboard, FileText, User, LogOut, Zap, BookOpen, X } from 'lucide-react';
 
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
@@ -35,8 +35,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       {/* Logo and close button for mobile */}
       <div className='flex items-center justify-between h-16 px-5 border-b border-slate-200/60'>
         <div className='flex items-center gap-3'>
-          <div className='flex items-center justify-center w-9 h-9 rounded-xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-md shadow-emerald-500/20'>
-            <BrainCircuit className='text-white' size={20} strokeWidth={2.5} />
+          <div className='flex items-center justify-center w-9 h-9 rounded-xl bg-linear-to-br from-slate-500 to-slate-500 shadow-md shadow-slate-500/20'>
+            <Zap className='text-white' size={20} strokeWidth={2.5} />
           </div>
           <h1 className='text-sm md:text-base font-bold text-slate-900 tracking-tight'>AI Learning Assistant</h1>
         </div>
@@ -54,7 +54,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             onClick={toggleSidebar}
             className={({ isActive }) =>
               `group flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 ${isActive
-                ? 'bg-linear-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25'
+                ? 'bg-linear-to-r from-slate-500 to-slate-600 text-white shadow-lg shadow-slate-500/10'
                 : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
               }`
             }

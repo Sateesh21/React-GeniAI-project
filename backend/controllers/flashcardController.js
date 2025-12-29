@@ -1,6 +1,6 @@
 import Flashcard from "../models/Flashcard.js";
 
-export const getFlashcards = async (req, res, next) => {
+export const getFlashcards = async (req, res, next) => { //need to check....
     try {
         const flashcards = await Flashcard.find({
             userId: req.user._id,
@@ -113,8 +113,6 @@ export const toggleStarFlashcard = async (req, res, next) => {
             data: flashcardSet,
             message: `Flashcard ${flashcardSet.cards[cardIndex].isStarred ? 'starred' : 'unstarred'}`
         });
-
-
     } catch (error) {
         next(error);
     }
