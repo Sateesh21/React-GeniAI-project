@@ -212,7 +212,7 @@ const FlashcardManager = ({ documentId }) => {
         if (flashcardSets.length === 0) {
             return (
                 <div className='flex flex-col items-center justify-center py-16 px-6'>
-                    <div className='inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 mb-'>
+                    <div className='inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 mb-6'>
                         <Brain className='w-8 h-8 text-emerald-600' strokeWidth={2} />
                     </div>
                     <h3 className='text-xl font-semibold text-slate-900 mb-2'>
@@ -224,7 +224,7 @@ const FlashcardManager = ({ documentId }) => {
                     <button
                         onClick={handleGenerateFlashcards}
                         disabled={generating}
-                        className='group inline-flex items-center gap-2 px-6 h-12 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 active:scale-95 disabled:cursor-not-allowed disabled:active:scale-100'
+                        className='group inline-flex items-center gap-2 px-6 h-12 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100'
                     >
                         {generating ? (
                             <>
@@ -280,7 +280,7 @@ const FlashcardManager = ({ documentId }) => {
                         <div
                             key={set._id}
                             onClick={() => handleSelectSet(set)}
-                            className='group relative bg-white/80 backdrop-blur-xl border-2 border-slate-200 hover:border-emerald-300 rounded-2xl p-6 cursor-pointer transition-all duration-all hover:shadow-lg hover:shadow-emerald-500/10'>
+                            className='group relative bg-white/80 backdrop-blur-xl border-2 border-slate-200 hover:border-emerald-300 rounded-2xl p-6 cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-emerald-500/10'>
 
                             {/* Delete Button */}
                             <button
@@ -300,7 +300,7 @@ const FlashcardManager = ({ documentId }) => {
                                         Flashcard Set
                                     </h4>
                                     <p className='text-xs font-medium text-slate-500 uppercase tracking-wide'>
-                                        Created {moment(set.createdAt).format('MMM D, YYYY')}
+                                        Created {moment(set.createdAt).format("MMM D, YYYY")}
                                     </p>
                                 </div>
 

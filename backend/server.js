@@ -5,8 +5,6 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import { connect } from 'http2';
-// import { error } from 'console';
 import connectDB from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
 

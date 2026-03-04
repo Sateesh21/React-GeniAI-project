@@ -22,6 +22,6 @@ const AppLayout = ({children}) => {
   )
 }
 
-export default AppLayout
+export default AppLayout;
 
 //Done

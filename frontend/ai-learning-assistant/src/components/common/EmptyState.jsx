@@ -25,4 +25,4 @@ const EmptyState = ({onActionClick, title, description, buttonText}) => {
   )
 }
 
-export default EmptyState
+export default EmptyState;

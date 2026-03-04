@@ -89,4 +89,4 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   </>
 }
 
-export default Sidebar
+export default Sidebar;

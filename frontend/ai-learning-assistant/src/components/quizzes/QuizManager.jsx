@@ -26,7 +26,7 @@ const QuizManager = ({ documentId }) => {
     const fetchQuizzes = async () => {
         setLoading(true);
         try {
-            const data = await quizzes.getQuizzesForDocument(documentId);
+            const data = await quizService.getQuizzesForDocument(documentId);
             setQuizzes(data.data);
 
         } catch (error) {
@@ -92,7 +92,7 @@ const QuizManager = ({ documentId }) => {
                 title="No Quizzes Yet"
                 description="Generate a quiz from your document" />
             );
-        }
+        };
 
         return (
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-clos-4 gap-4'>
@@ -153,7 +153,7 @@ const QuizManager = ({ documentId }) => {
             title="Confirm Delete Quiz">
                 <div className='space-y-4'>
                     <p className='text-sm text-netural-600'>
-                        Are You sure wnat to delete this quiz: <span className='font-semibold text-netural-900'>{selectedQuiz?.title || 'this quiz'}</span>? This action can't be undone
+                        Are You sure want to delete this quiz: <span className='font-semibold text-netural-900'>{selectedQuiz?.title || 'this quiz'}</span>? This action can't be undone
                     </p>
                     <div className='flex justify-end gap-2 pt-2'>
                         <Button
@@ -177,4 +177,3 @@ const QuizManager = ({ documentId }) => {
 }
 
 export default QuizManager
-//Not working proporly

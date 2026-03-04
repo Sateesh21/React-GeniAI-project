@@ -75,7 +75,7 @@ const DashboardPage = () => {
           <h1 className='text-2xl font-medium text-slate-900 tracking-tight mb-2'>
             Dashboard
           </h1>
-          <p className='text-slate-text-sm'>
+          <p className='text-slate-500 text-sm'>
             TRACK YOUR PROGRESS
           </p>
         </div>

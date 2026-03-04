@@ -18,8 +18,8 @@ const QuizTakePage = () => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const responce = await quizService.getQuizById(quizId);
-        setQuiz(responce.data);
+        const response = await quizService.getQuizById(quizId);
+        setQuiz(response.data);
       } catch (error) {
         toast.error("Failed to fetch quiz");
         console.error(error);

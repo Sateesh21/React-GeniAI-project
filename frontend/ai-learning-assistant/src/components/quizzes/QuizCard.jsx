@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { Play, BarChart2, Trash2, Award } from 'lucide-react';
+import moment from 'moment';
 
-const QuizCard = () => {
+const QuizCard = ({quiz, onDelete}) => {
     return (
         <div className='group relative bg-white/80 backdrop-blur-xl border-2 border-slate-200 hover:border-emerald-300 rounded-2xl p-4 transition-all duration-200 hover:shadow-lg hover:shadow-emerald-500/10 flex flex-col justify-between'>
             <button
