@@ -26,13 +26,13 @@ const DashboardPage = () => {
     fetchDashboardData();
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   if (!dashboardData || !dashboardData.overview) {
     return (
-      <div className='min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 flex items-center justify-center'>
+      <div className='min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-50 flex items-center justify-center'>
         <div className='text-center'>
           <div className='inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-100 mb-4'>
             <TrendingUp className='w-8 h-8 text-slate-400' />
@@ -62,8 +62,8 @@ const DashboardPage = () => {
       label: 'Total Quizzes',
       value: dashboardData.overview.totalQuizzes,
       icon: ClipboardList,
-      gradient: 'from-emerald-400 to-teal-500',
-      shadowColor: 'shadow-emerald-500/25'
+      gradient: 'from-slate-400 to-slate-500',
+      shadowColor: 'shadow-slate-500/25'
     }
   ];
   return (
@@ -122,7 +122,7 @@ const DashboardPage = () => {
                 })),
                 ...(dashboardData.recentActivity.quizzes || []).map(quiz => ({
                   id: quiz._id,
-                  description: quiz.lastAttempted,
+                  description: quiz.title,
                   link: `/quizzes/${quiz._id}`,
                   type: 'quiz'
                 }))
@@ -136,7 +136,7 @@ const DashboardPage = () => {
                       <div className='flex items-center gap-2 mb-1'>
                         <div className={`w-2 h-2 rounded-full ${activity.type === 'document'
                             ? 'bg-linear-to-r from-blue-400 to-cyan-500'
-                            : 'bg-linear-to-r from-emerald-400 to-teal-500'
+                            : 'bg-linear-to-r from-slate-400 to-slate-500'
                           }`} />
                         <p className='text-sm font-medium text-slate-900 truncate'>
                           {activity.type === 'document' ? 'Accessed Document: ' : 'Attempted Quiz: '}
@@ -150,7 +150,7 @@ const DashboardPage = () => {
                     {activity.link && (
                       <a
                         href={activity.link}
-                        className='ml-4 px-4 py-2 text-xs font-semibold text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-all duration-200 whitespace-nowrap'>
+                        className='ml-4 px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-700 hover:bg-slate-50 rounded-lg transition-all duration-200 whitespace-nowrap'>
                         view
                       </a>
                     )}

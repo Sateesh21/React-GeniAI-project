@@ -41,7 +41,7 @@ const LoginPage = () => {
 
           {/* header */}
           <div className="text-center mb-10">
-            <div className='inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-lg shadow-emerald-500/25 mb-6'>
+            <div className='inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br from-slate-400 to-slate-500 shadow-lg shadow-slate-500/25 mb-6'>
               <BrainCircuit className='w-7 h-7 text-white' strokeWidth={2} />
             </div>
             <h1 className='text-2xl font-medium text-slate-900 tracking-tight mb-2'>
@@ -61,7 +61,7 @@ const LoginPage = () => {
                 Email
               </label>
               <div className='relative group'>
-                <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors duration-200 ${focusedField === ' email' ? 'text-emerald-500' : 'text-slate-400'
+                <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors duration-200 ${focusedField === ' email' ? 'text-slate-500' : 'text-slate-400'
                   } `}>
                   <Mail className="h-5 w-5" strokeWidth={2} />
                 </div>
@@ -70,7 +70,7 @@ const LoginPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
-                  className='w-full h-12 pl-12 pr-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10'
+                  className='w-full h-12 pl-12 pr-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-500 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10'
                   placeholder='yourmail@id.com' />
               </div>
             </div>
@@ -82,7 +82,7 @@ const LoginPage = () => {
               </label>
               <div className="relative group">
                 <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors duration-200
-                ${focusedField === 'password' ? 'text-emerald-500' : 'text-slate-400'
+                ${focusedField === 'password' ? 'text-slate-500' : 'text-slate-400'
                   }`}>
                   <Lock className='h-5 w-5' strokeWidth={2} />
                 </div>
@@ -92,7 +92,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   onFocus={() => setFocusedField('password')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full h-12 pl-12 pr-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:bg-white focus:shadow-lg focus:shadow-emerald-500/10"
+                  className="w-full h-12 pl-12 pr-4 border-2 border-slate-200 rounded-xl bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm font-medium transition-all duration-200 focus:outline-none focus:border-slate-500 focus:bg-white focus:shadow-lg focus:shadow-slate-500/10"
                   placeholder="*******" />
               </div>
             </div>
@@ -108,7 +108,7 @@ const LoginPage = () => {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="group relavite w-full h-12 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 shadow-lg shadow-emerald-500/25 overflow-hidden"
+              className="group relavite w-full h-12 bg-linear-to-r from-slate-500 to-slate-500 hover:from-slate-600 hover:to-slate-600 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-slate-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 shadow-lg shadow-slate-500/25 overflow-hidden"
             >
               <span className='relative z-10 flex items-center justify-center gap-2'>
                 {loading ? (
@@ -131,7 +131,7 @@ const LoginPage = () => {
           <div className="mt-8 pt-6 border-t border-slate-200/60">
             <p className="text-center text-sm text-slate-600">
               Don't have an account?{' '}
-              <Link to='/register' className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors duration-200">
+              <Link to='/register' className="font-semibold text-slate-600 hover:text-slate-700 transition-colors duration-200">
                 Sign up</Link>
             </p>
           </div>

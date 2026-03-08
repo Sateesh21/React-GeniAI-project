@@ -12,13 +12,13 @@ const EmptyState = ({onActionClick, title, description, buttonText}) => {
         {buttonText && onActionClick && (
             <button
             onClick={onActionClick}
-            className='group relative inline-flex items-center gap-2 px-6 h-11 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 active:scale-95 focus:outline-none focus:ring-4 focus:righ-emerald-500/20 overflow-hidden'>
+            className='group relative inline-flex items-center gap-2 px-6 h-11 bg-linear-to-r from-slate-500 to-slate-500 hover:from-slate-600 hover:to-slate-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-slate-500/25 active:scale-95 focus:outline-none focus:ring-4 focus:righ-slate-500/20 overflow-hidden'>
 
                 <span className='relative z-10 flex items-center gap-2'>
                     <Plus className='w-4 h-4' strokeWidth={2.5} />
                     {buttonText}
                 </span>
-                <div className='absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700'/>
+                <div className='absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700'/>
             </button>
         )}
     </div>

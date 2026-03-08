@@ -6,6 +6,7 @@ import PageHeader from '../../components/common/PageHeader';
 import Spinner from '../../components/common/Spinner';
 import toast from 'react-hot-toast';
 import Button from '../../components/common/Button';
+// import loading from '../'
 
 const QuizTakePage = () => {
   const { quizId } = useParams();
@@ -14,6 +15,7 @@ const QuizTakePage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -71,13 +73,13 @@ const QuizTakePage = () => {
   };
 
 
-  if (loading) {
-    return (
-      <div className='flex items-center justify-center min-h-[60vh]'>
-        <Spinner />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className='flex items-center justify-center min-h-[60vh]'>
+  //       <Spinner />
+  //     </div>
+  //   );
+  // }
 
   if (!quiz || quiz.questions.length === 0) {
     return (
@@ -90,7 +92,7 @@ const QuizTakePage = () => {
   }
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
-  const isAnswered = selectedAnswers.hasOwnProporty(currentQuestion._id);
+  const isAnswered = selectedAnswers.hasOwnProperty(currentQuestion._id);
   const answeredCount = Object.keys(selectedAnswers).length;
 
   return (
@@ -109,16 +111,16 @@ const QuizTakePage = () => {
         </div>
         <div className='relative h-2 bg-slate-100 rounded-full overflow-hidden'>
           <div
-            className='absolute inset-y-0 left-0 bg-linear-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500 ease-out'
+            className='absolute inset-y-0 left-0 bg-linear-to-r from-slate-500 to-slate-500 rounded-full transition-all duration-500 ease-out'
             style={{ width: `${((currentQuestionIndex + 1) / quiz.questions.length) * 100}%` }} />
         </div>
       </div>
 
       {/* Question Card */}
       <div className='bg-white/80 backdrop-blur-xl border-2 border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 p-6 mb-8'>
-        <div className='inline-flex items-center pag-2 px-4 py-2 bg-linear-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl mb-6'>
-          <div className='w-2 h-2 bg-emerald-500 rounded-full animate-pulse' />
-          <span className='text-sm font-semibold text-emerald-700'>
+        <div className='inline-flex items-center pag-2 px-4 py-2 bg-linear-to-r from-slate-50 to-slate-50 border border-slate-200 rounded-xl mb-6'>
+          <div className='w-2 h-2 bg-slate-500 rounded-full animate-pulse' />
+          <span className='text-sm font-semibold text-slate-700'>
             Question {currentQuestionIndex + 1}
           </span>
         </div>
@@ -135,7 +137,7 @@ const QuizTakePage = () => {
               <label
                 key={index}
                 className={`group relative flex items-center p-3 border-2 rounded-xl cursor-pointer transition-all duration-200 ${isSelected
-                    ? 'border-emerald-500 bg-emerald-500 shadow-lg shadow-emerald-500/10'
+                    ? 'border-slate-500 bg-slate-500 shadow-lg shadow-slate-500/10'
                     : 'border-slate-200 bg-slate-50/50 hover:border-slate-300 hover:bg-white hover:shadow-md'
                   }`} >
                 <input
@@ -148,8 +150,8 @@ const QuizTakePage = () => {
 
                 {/* Custom radio button */}
                 <div className={`shrink-0 w-5 h-5 rounded-full border-2 transition-all duration-200 ${isSelected
-                    ? 'border-emerald-500 bg-emerald-500'
-                    : 'border-slate-300 bg-white group-hover:border-emerald-400'
+                    ? 'border-slate-500 bg-slate-500'
+                    : 'border-slate-300 bg-white group-hover:border-slate-400'
                   }`}>
                   {isSelected && (
                     <div className='w-full h-full flex items-center justify-center'>
@@ -160,7 +162,7 @@ const QuizTakePage = () => {
 
                 {/* Option text */}
                 <span className={`ml-4 text-sm font-medium transition-colors duration-200 ${
-                  isSelected ? 'text-emerald-900' : 'text-slate-700 group-hover:text-slate-900'
+                  isSelected ? 'text-slate-900' : 'text-slate-700 group-hover:text-slate-900'
                 }`}>
                   {option}
                 </span>
@@ -168,7 +170,7 @@ const QuizTakePage = () => {
                 {/* Selected Chunkmark */}
                 {isSelected && (
                   <CheckCircle2
-                  className='ml-auto w-5 h-5 text-emerald-500'
+                  className='ml-auto w-5 h-5 text-slate-500'
                   strokeWidth={2.5} />
                 )}
               </label>
@@ -191,7 +193,7 @@ const QuizTakePage = () => {
           <button
           onClick={handleSubmitQuiz}
           disabled={submitting}
-          className='group relative px-8 h-12 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 overflow-hidden'>
+          className='group relative px-8 h-12 bg-linear-to-r from-slate-500 to-slate-500 hover:from-slate-600 hover:to-slate-600 text-white font-semibold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-slate-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 overflow-hidden'>
             <span className='relative z-10 flex items-center justify-center gap-2'>
               {submitting ? (
                 <>
@@ -230,9 +232,9 @@ const QuizTakePage = () => {
             disabled={submitting}
             className={`w-8 h-8 rounded-lg font-semibold text-xs transition-all duration-200 ${
               isCurrent
-              ? 'bg-linear-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 scale-110'
+              ? 'bg-linear-to-r from-slate-500 to-slate-500 text-white shadow-lg shadow-slate-500/25 scale-110'
               : isAnsweredQuestion
-              ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+              ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             } disabled:opacity-50 disabled:cursor-not-allowed`}>
               {index + 1}
