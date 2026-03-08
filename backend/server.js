@@ -5,10 +5,9 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import { connect } from 'http2';
-// import { error } from 'console';
 import connectDB from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
+
 import authRoutes from './routes/authRoutes.js';
 import documentRoutes from './routes/documentRoutes.js';
 import flashcardRoutes from './routes/flashcardRoutes.js';

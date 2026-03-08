@@ -1,4 +1,4 @@
-import mongoose, { connect } from "mongoose";
+import mongoose from "mongoose";
 
 const documentSchema = new mongoose.Schema({
     userId: {
@@ -70,3 +70,4 @@ documentSchema.index({ userId: 1, uploadDate: -1 });
 const Document = mongoose.model('Document', documentSchema);
 
 export default Document;
+//Done

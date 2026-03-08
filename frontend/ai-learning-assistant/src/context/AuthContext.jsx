@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, Children } from "react";
+import React, { createContext, useContext, useState, useEffect, children } from "react";
+
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -9,12 +10,12 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ Children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     checkAuthStatus();
   }, []);
   const checkAuthStatus = async () => {
@@ -22,12 +23,12 @@ export const AuthProvider = ({ Children }) => {
       const token = localStorage.getItem('token');
       const userStr = localStorage.getItem('user');
 
-      if(token && userStr){
+      if (token && userStr) {
         const userData = JSON.parse(userStr);
         setUser(userData);
         setIsAuthenticated(true);
       }
-    } catch(error) {
+    } catch (error) {
       console.error('Auth check failed:', error);
       logout();
     } finally {
@@ -53,7 +54,7 @@ export const AuthProvider = ({ Children }) => {
   };
 
   const updateUser = (updateUserData) => {
-    const newUserData = {...user, ...updateUserData };
+    const newUserData = { ...user, ...updateUserData };
     localStorage.setItem('user', JSON.stringify(newUserData));
     setUser(newUserData);
   };
@@ -65,8 +66,8 @@ export const AuthProvider = ({ Children }) => {
     login,
     logout,
     updateUser,
-    checkAuthStatus,
+    checkAuthStatus
   };
 
-  return <AuthContext.Provider value={value}>{Children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

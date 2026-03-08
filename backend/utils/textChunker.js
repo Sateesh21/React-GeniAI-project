@@ -4,7 +4,13 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
     }
 
     //Clean text while preserving paragrapg strecture
-    const cleanedText = text.replace(/\r\n/g, '\n').replace(/\s+/g, ' ').replace(/\n /g, '\n').replace(/ \n/g, '\n').trim();
+    const cleanedText = text
+    .replace(/\r\n/g, '\n')
+    .replace(/\s+/g, ' ')
+    .replace(/\n /g, '\n')
+    .replace(/ \n/g, '\n')
+    .trim();
+
     const paragraphs = cleanedText.split(/\n+/).filter(p => p.trim().length > 0);
 
     const chunks = [];
@@ -13,7 +19,7 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
     let chunkIndex = 0;
 
     for (const paragraph of paragraphs) {
-        const paragraphWords = paragraph.trim().split()(/\s+/);
+        const paragraphWords = paragraph.trim().split(/\s+/);
         const paragraphWordCount = paragraphWords.length;
 
         //If single paragraph exceeds chunk size, split it by words
@@ -96,7 +102,8 @@ export const findRelevantChunks = (chunks, quary, maxChunks = 3) => {
 
     //Common stop words to exclude
     const stopWords = new Set([
-        'the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'but', 'in', 'with', 'to', 'for', 'of', 'as', 'by', 'this', 'that', 'it'
+        'the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'but', 'in', 
+        'with', 'to', 'for', 'of', 'as', 'by', 'this', 'that', 'it'
     ]);
 
     const quaryWords = quary.toLowerCase().split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
@@ -156,5 +163,5 @@ export const findRelevantChunks = (chunks, quary, maxChunks = 3) => {
         }
         return a.chunkIndex - b.chunkIndex;
     })
-        .slice(0, maxChunks);
+    .slice(0, maxChunks);
 };

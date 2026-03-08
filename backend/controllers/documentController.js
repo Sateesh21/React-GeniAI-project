@@ -1,5 +1,4 @@
 import Document from '../models/Document.js';
-// import Document from '../models/Document.js';
 import Flashcard from '../models/Flashcard.js';
 import Quiz from '../models/Quiz.js';
 import { extractTextFromPDF } from '../utils/pdfParser.js';
@@ -56,10 +55,10 @@ export const uploadDocument = async (req, res, next) => {
 
     } catch (error) {
         if (req.file) {
-            await fs.unlink(req.file.path).catch(() => {});
+            await fs.unlink(req.file.path).catch(() => { });
         }
         next(error);
-    }j
+    }
 };
 
 //Helper function
@@ -69,7 +68,7 @@ const processPDF = async (documentId, filePath) => {
 
         const chunks = chunkText(text, 500, 50);
 
-        await Document.finedByIdAndUpload(documentId, {
+        await Document.findByIdAndUpdate(documentId, {
             extractedText: text,
             chunks: chunks,
             status: 'ready'
@@ -113,7 +112,7 @@ export const getDocuments = async (req, res, next) => {
             },
             {
                 $project: {
-                    extractText: 0,
+                    extractedText: 0,
                     chunks: 0,
                     flashcardSets: 0,
                     quizzes: 0
@@ -150,7 +149,7 @@ export const getDocument = async (req, res, next) => {
             });
         }
 
-        //get counts of associated flascards and quizzes
+        //get counts of associated flascards and quizzes /api/documents/upload
         const flashcardCount = await Flashcard.countDocuments({ documentId: document._id, userId: req.user._id });
         const quizCount = await Quiz.countDocuments({ documentId: document._id, userId: req.user._id });
 
@@ -203,3 +202,7 @@ export const deleteDocument = async (req, res, next) => {
         next(error);
     }
 };
+
+// export const updateDocument = async (req, res, next) => {
+
+// };

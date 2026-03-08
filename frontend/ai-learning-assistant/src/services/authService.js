@@ -3,7 +3,7 @@ import { API_PATHS } from "../utils/apiPaths";
 
 const login = async (email, password) => {
     try {
-        const response = await axiosInstance.post.apply(API_PATHS.AUTH.LOGIN, {
+        const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
             email,
             password,
         });
