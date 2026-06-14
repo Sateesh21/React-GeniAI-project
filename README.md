@@ -57,7 +57,7 @@ A backend service that allows users to upload PDF documents and automatically ge
 7. GET  /api/progress            → check progress
 
 #### Author
- -Sateesh Sunkara.
+- Sateesh Sunkara.
  
 
 
