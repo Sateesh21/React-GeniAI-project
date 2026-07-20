@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# git
+.git
+.gitignore
+
+# editor/OS
+.vscode
+.idea
+.DS_Store
+
+# logs
+*.log
+npm-debug.log*
+
+# docker
+Dockerfile
+.dockerignore
+
+# misc
+README.md
+
+# tests (optional - skip if you run tests inside the container)
+coverage
